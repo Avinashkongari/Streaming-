@@ -1,0 +1,132 @@
+name: Axion Stream CI/CD Build
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backend-build-and-test:
+    name: Backend Typecheck, Build & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install backend dependencies
+        run: npm ci
+
+      - name: Type-check TypeScript
+        run: npm run typecheck
+
+      - name: Build backend
+        run: npm run build
+
+      - name: Run backend tests
+        run: npm test
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
+  backend-docker-build:
+    name: Backend Docker Image Build
+    runs-on: ubuntu-latest
+    needs: backend-build-and-test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: false
+          tags: axion-stream-backend:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  android-build-and-apk:
+    name: Android Unit Tests & Debug APK Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
+
+      - name: Prepare Android environment configuration
+        env:
+          AXION_API_BASE_URL: ${{ secrets.AXION_API_BASE_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -n "$AXION_API_BASE_URL" ] || [ -n "$SUPABASE_URL" ] || [ -n "$SUPABASE_ANON_KEY" ]; then
+            {
+              echo "AXION_API_BASE_URL=${AXION_API_BASE_URL:-https://api.axion-stream.example.com}"
+              echo "SUPABASE_URL=${SUPABASE_URL:-https://your-project.supabase.co}"
+              echo "SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-YOUR_SUPABASE_ANON_KEY}"
+            } > .env
+          else
+            cp .env.example .env
+          fi
+
+      - name: Prepare Debug Keystore for CI APK signing
+        run: |
+          if [ -f debug.keystore.base64 ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
+          elif [ ! -f debug.keystore ]; then
+            keytool -genkey -v \
+              -keystore debug.keystore \
+              -storepass android \
+              -alias androiddebugkey \
+              -keypass android \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=Android Debug,O=Android,C=US"
+          fi
+
+      - name: Run Android unit tests
+        run: gradle :app:testDebugUnitTest --no-daemon
+
+      - name: Build Android Debug APK
+        run: gradle :app:assembleDebug --no-daemon
+
+      - name: Upload Debug APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: axion-stream-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 30

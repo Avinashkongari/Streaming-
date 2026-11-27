@@ -1,0 +1,6 @@
+{
+  "name": "Axion Stream",
+  "description": "Private Netflix-style video streaming application powered by access-code authentication, Supabase metadata, and authorized progressive Telegram streaming.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

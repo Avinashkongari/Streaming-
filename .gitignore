@@ -1,0 +1,40 @@
+# Android / Gradle / IDE
+*.iml
+.gradle
+.kotlin
+/local.properties
+local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/app/build
+/.build-outputs
+/captures
+.externalNativeBuild
+.cxx
+
+# Environment secrets (NEVER commit real credentials)
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Keystores & build artifacts
+debug.keystore
+*.jks
+*.keystore
+*.apk
+*.aab
+
+# Backend Node.js / TypeScript
+backend/node_modules/
+backend/dist/
+backend/*.log
+npm-debug.log*

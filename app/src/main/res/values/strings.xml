@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">Axion Stream</string>
+    <string name="brand_wordmark">AXION STREAM</string>
+    <string name="brand_tagline">PRIVATE CINEMA · INVITATION ONLY</string>
+
+    <!-- Login -->
+    <string name="login_headline">Private Access</string>
+    <string name="login_subtitle">Enter your single-user invitation access code to unlock your private streaming library.</string>
+    <string name="login_code_label">Access Code</string>
+    <string name="login_code_placeholder">AXN-XXXX-XXXX</string>
+    <string name="login_activate_cta">Activate &amp; Sign In</string>
+    <string name="login_activating">Verifying access code…</string>
+    <string name="login_preview_cta">Explore UI Preview (Sample Catalogue)</string>
+    <string name="login_preview_disclaimer">UI Preview uses offline sample artwork only and does not authenticate or simulate Telegram streams.</string>
+    <string name="login_no_public_signup">Private access only. Public registration is disabled.</string>
+    <string name="login_error_empty">Please enter your access code.</string>
+    <string name="login_error_backend_unconfigured">Backend API URL is not configured yet. Set AXION_API_BASE_URL in Secrets, or launch UI Preview to inspect the interface.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_my_list">My List</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Home -->
+    <string name="home_featured_badge">FEATURED PREMIERE</string>
+    <string name="home_play_now">Play Now</string>
+    <string name="home_resume">Resume</string>
+    <string name="home_my_list_add">My List</string>
+    <string name="home_my_list_added">In My List</string>
+    <string name="home_section_continue">Continue Watching</string>
+    <string name="home_section_trending">Trending Now</string>
+    <string name="home_section_recent">Recently Added</string>
+    <string name="home_section_all_categories">Browse by Category</string>
+    <string name="home_empty_title">No titles available yet</string>
+    <string name="home_empty_body">Your private catalogue has no published titles matching this filter. Pull to refresh or check back soon.</string>
+    <string name="home_preview_banner">UI PREVIEW · SAMPLE DATA (NOT AUTHENTICATED)</string>
+    <string name="home_retry">Retry</string>
+
+    <!-- Movie Details -->
+    <string name="details_play_now">Play Now</string>
+    <string name="details_resume_from">Resume from %1$s</string>
+    <string name="details_restart">Play from Beginning</string>
+    <string name="details_synopsis">Synopsis</string>
+    <string name="details_stream_info_title">Private Stream Delivery</string>
+    <string name="details_stream_info_body">Progressive HTTP Range streaming via authorized backend · Temporary memory buffer only · Never saved to device Gallery.</string>
+    <string name="details_back_cd">Navigate back</string>
+
+    <!-- Video Player -->
+    <string name="player_buffering">Buffering secure stream…</string>
+    <string name="player_retry">Retry Playback</string>
+    <string name="player_error_title">Stream Unavailable</string>
+    <string name="player_preview_title">UI Preview Mode — No Live Telegram Stream</string>
+    <string name="player_preview_body">This sample title is for interface preview only. Axion Stream never fakes Telegram video streams. Sign in with a valid access code connected to your authorized backend to stream real HTTP Range media.</string>
+    <string name="player_fullscreen_enter_cd">Enter fullscreen landscape</string>
+    <string name="player_fullscreen_exit_cd">Exit fullscreen</string>
+    <string name="player_play_cd">Play video</string>
+    <string name="player_pause_cd">Pause video</string>
+    <string name="player_rewind_cd">Rewind 10 seconds</string>
+    <string name="player_forward_cd">Forward 10 seconds</string>
+    <string name="player_mute_cd">Toggle mute</string>
+    <string name="player_volume_cd">Volume level</string>
+    <string name="player_temp_buffer_badge">TEMP STREAM · NO DOWNLOAD</string>
+
+    <!-- Search -->
+    <string name="search_placeholder">Search movies by title…</string>
+    <string name="search_clear_cd">Clear search</string>
+    <string name="search_empty_title">No matching titles</string>
+    <string name="search_empty_body">We couldn\'t find any movies matching \"%1$s\". Try a different title or browse categories.</string>
+    <string name="search_prompt_title">Discover Your Private Library</string>
+    <string name="search_prompt_body">Search by movie title or select a genre below.</string>
+
+    <!-- My List -->
+    <string name="mylist_title">My List</string>
+    <string name="mylist_subtitle">Saved titles tied to your private account</string>
+    <string name="mylist_empty_title">Your list is empty</string>
+    <string name="mylist_empty_body">Tap My List on any movie to keep it ready for instant progressive playback.</string>
+    <string name="mylist_explore_cta">Browse Catalogue</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Account &amp; Access</string>
+    <string name="profile_account_status">Account Status</string>
+    <string name="profile_access_code_status">Access Code Status</string>
+    <string name="profile_backend_status">Streaming Backend</string>
+    <string name="profile_security_title">Privacy &amp; Streaming Safeguards</string>
+    <string name="profile_logout">Sign Out</string>
+    <string name="profile_exit_preview">Exit Preview &amp; Sign In</string>
+</resources>

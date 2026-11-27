@@ -1,0 +1,37 @@
+{
+  "name": "axion-stream-backend",
+  "version": "1.0.0",
+  "description": "Authorized Axion Stream backend API with Supabase persistence, single-user access codes, admin auth, and Telegram MTProto HTTP Range video streaming.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "hash-password": "tsx scripts/hash-admin-password.ts",
+    "telegram-session": "tsx scripts/generate-telegram-session.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
+    "big-integer": "^1.6.52",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "telegram": "^2.26.22",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
